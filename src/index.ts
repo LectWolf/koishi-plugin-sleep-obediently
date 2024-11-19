@@ -1,11 +1,12 @@
-import { Context, Schema } from 'koishi'
+import { Context } from "koishi";
+import * as groupmanager from "./groupmanager";
+import { Config } from "./config";
 
-export const name = 'sleep-obediently'
+export const name = "sleep-obediently";
+export const inject = ["cron"];
+export const reusable = true;
 
-export interface Config {}
-
-export const Config: Schema<Config> = Schema.object({})
-
-export function apply(ctx: Context) {
-  // write your plugin here
+export * from "./config";
+export function apply(ctx: Context, config: Config) {
+  ctx.plugin(groupmanager, config);
 }
